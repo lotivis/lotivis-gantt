@@ -1,18 +1,22 @@
 import * as d3 from "d3";
-import { baseChart } from "./baseChart.js";
-import { config } from "../../lotivis-charts/src/common/config.js";
-import { uniqueId } from "../../lotivis-charts/src/common/identifiers.js";
-import { tooltip } from "./tooltip.js";
-import { hash } from "../../lotivis-charts/src/common/hash.js";
-import { transX, transY } from "../../lotivis-charts/src/common/helpers.js";
+import { chart as baseChart, config, tooltip } from "lotivis-chart";
 import {
   colorScale1,
   colorSchemeDefault,
   ColorsGenerator,
-} from "../../lotivis-charts/src/common/colors.js";
-import { DEFAULT_NUMBER_FORMAT } from "../../lotivis-charts/src/common/formats.js";
+} from "lotivis-colors";
 
-export const DATE_ACCESS = function (d) {
+import { hash } from "./hash.js";
+
+function transX(x) {
+  return "translate(" + x + ",0)";
+}
+
+function transY(y) {
+  return "translate(0," + y + ")";
+}
+
+const DATE_ACCESS = function (d) {
   return d;
 };
 
@@ -102,7 +106,7 @@ export function gantt() {
     dateAccess: DATE_ACCESS,
 
     // format for displayed numbers
-    numberFormat: DEFAULT_NUMBER_FORMAT,
+    numberFormat: config.numberFormat,
 
     // sort, "alphabetically"
     sort: null,
@@ -363,7 +367,8 @@ export function gantt() {
       .attr("opacity", (d) =>
         isSingle ? (d[1] + brush) / (dv.max + brush) : 1
       )
-      .radius(attr.radius);
+      .attr("rx", attr.radius)
+      .attr("ry", attr.radius);
 
     if (attr.labels === true) {
       calc.labels = calc.barsData
@@ -406,7 +411,8 @@ export function gantt() {
       .attr("transform", (d) => `translate(0,${calc.yChartPadding(d.label)})`)
       .attr("fill", (d) => `url(#${attr.id}-${hash(d.label)})`)
       .attr("class", "ltv-gantt-bar")
-      .radius(attr.radius)
+      .attr("rx", attr.radius)
+      .attr("ry", attr.radius)
       .attr("x", (d) =>
         calc.xChart(d.duration < 0 ? d.lastDate : d.firstDate || 0)
       )
@@ -563,8 +569,9 @@ export function gantt() {
     if (!dc) throw new Error("no data controller");
 
     let dv = {};
-    dv.dates = dc.dates().sort();
-    dv.labels = dc.labels();
+    let data = dc.data();
+    dv.dates = data.dates.sort();
+    dv.labels = data.labels;
     dv.data = dc.snapshot();
     dv.byLabelDate = d3.rollups(
       dv.data,

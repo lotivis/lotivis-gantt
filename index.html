@@ -2,68 +2,84 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
-    />
+    <title>GanttChart Showcase</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
 
-    <link rel="stylesheet" href="./examples.css" />
-    <title>PlotChart Showcase</title>
+      .ltv-container {
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      h1 {
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <div class="ltv-container">
-      <h1>Plot Chart Showcase</h1>
+      <h1>Gantt Chart Showcase</h1>
 
       <div style="width: 480px; display: inline-block">
         gradient-single
         <div id="gradient-single">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         gradient-multi-alphabetically
         <div id="gradient-multi-alphabetically">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         gradient-multi-duration
         <div id="gradient-multi-duration">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         gradient-multi-intensity
         <div id="gradient-multi-intensity">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         gradient-multi-firstDate
         <div id="gradient-multi-firstDate">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
       </div>
 
       <div style="width: 480px; display: inline-block">
         fraction-single
         <div id="fraction-single">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         fraction-multi-alphabetically
         <div id="fraction-multi-alphabetically">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         fraction-multi-duration
         <div id="fraction-multi-duration">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         fraction-multi-intensity
         <div id="fraction-multi-intensity">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
         fraction-multi-firstDate
         <div id="fraction-multi-firstDate">
-          <!-- Plot Chart -->
+          <!-- Gantt Chart -->
         </div>
+      </div>
+
+      <h1>Interpolate</h1>
+      <div id="gantt-chart-gradient">
+        <!-- Plot Chart Card (type: gradient) Here -->
+      </div>
+      <div id="gantt-chart-fraction">
+        <!-- Plot Chart Card (type: fraction) Here -->
       </div>
 
       <pre id="ltv-data"></pre>
     </div>
 
-    <script src="../node_modules/lotivis/dist/lotivis.js"></script>
+    <script src="./dist/lotivis-gantt.js"></script>
 
     <script>
       let datasets = [
@@ -189,10 +205,10 @@
       let data = lotivis.datasetsToData(datasets);
       let dataController = lotivis.dataController(data);
 
-      function plot(id) {
+      function gantt(id) {
         let comps = id.split("-");
         return lotivis
-          .plot()
+          .gantt()
           .selector("#" + id)
           .width(480)
           .marginRight(100)
@@ -209,17 +225,74 @@
         "DarkBlue"
       );
 
-      plot("gradient-single");
-      plot("gradient-multi-alphabetically");
-      plot("gradient-multi-duration").colorScale(lotivis.colorScale2).run();
-      plot("gradient-multi-intensity").colorScale(customScale).run();
-      plot("gradient-multi-firstDate");
+      gantt("gradient-single");
+      gantt("gradient-multi-alphabetically");
+      gantt("gradient-multi-duration").colorScale(lotivis.colorScale2).run();
+      gantt("gradient-multi-intensity").colorScale(customScale).run();
+      gantt("gradient-multi-firstDate");
 
-      plot("fraction-single");
-      plot("fraction-multi-alphabetically");
-      plot("fraction-multi-duration").colorScale(lotivis.colorScale2).run();
-      plot("fraction-multi-intensity").colorScale(customScale).run();
-      plot("fraction-multi-firstDate");
+      gantt("fraction-single");
+      gantt("fraction-multi-alphabetically");
+      gantt("fraction-multi-duration").colorScale(lotivis.colorScale2).run();
+      gantt("fraction-multi-intensity").colorScale(customScale).run();
+      gantt("fraction-multi-firstDate");
+
+      let datasets2 = [
+        {
+          label: "dataset_1",
+          data: [
+            {
+              location: 1,
+              date: 2004,
+              value: 4,
+            },
+          ],
+        },
+        {
+          label: "dataset_2",
+          data: [
+            {
+              location: 1,
+              date: 2001,
+              value: 2,
+            },
+            {
+              location: 1,
+              date: 2002,
+              value: 4,
+            },
+          ],
+        },
+      ];
+
+      // enable debug messages
+      lotivis.debug(true);
+
+      let dates = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007];
+      let data2 = lotivis.datasetsToData(datasets2);
+      let dataController2 = lotivis.dataController(data2);
+
+      lotivis
+        .gantt()
+        .selector("#gantt-chart-gradient")
+        .marginRight(100)
+        .style("gradient")
+        .colorMode("multi")
+        .drawBottomAxis(true)
+        .dates(dates)
+        .dataController(dataController2)
+        .run();
+
+      lotivis
+        .gantt()
+        .selector("#gantt-chart-fraction")
+        .marginRight(100)
+        .style("fraction")
+        .colorMode("multi")
+        .drawBottomAxis(true)
+        .dates(dates)
+        .dataController(dataController2)
+        .run();
     </script>
   </body>
 </html>

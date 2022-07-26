@@ -20,9 +20,8 @@
   "scripts": {
     "build": "rollup --config",
     "build:watch": "rollup --config --watch",
-    "test": "mocha test/**/*-test.js",
-    "test:watch": "mocha test/**/*-test.js --watch",
-    "serve": "http-server"
+    "serve": "http-server",
+    "dev": "yarn serve & yarn build:watch"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "13",

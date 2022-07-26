@@ -1,6 +1,5 @@
-import "./index.scss";
-export * from "./bar.js";
-export * from "./legend.js";
+import "./gantt.scss";
+export * from "./gantt.js";
 export * from "lotivis-chart";
 export * from "lotivis-data";
 export * from "lotivis-datasets";
