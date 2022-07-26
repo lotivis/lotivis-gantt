@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+    />
+
+    <link rel="stylesheet" href="./examples.css" />
+    <title>PlotChart - Interpolate</title>
+  </head>
+  <body>
+    <div class="ltv-container">
+      <h1>Plot Chart</h1>
+      <div id="plot-chart-gradient">
+        <!-- Plot Chart Card (type: gradient) Here -->
+      </div>
+      <div id="plot-chart-fraction">
+        <!-- Plot Chart Card (type: fraction) Here -->
+      </div>
+    </div>
+
+    <script src="../node_modules/lotivis/dist/lotivis.js"></script>
+
+    <script>
+      let datasets = [
+        {
+          label: "dataset_1",
+          data: [
+            {
+              location: 1,
+              date: 2004,
+              value: 4,
+            },
+          ],
+        },
+        {
+          label: "dataset_2",
+          data: [
+            {
+              location: 1,
+              date: 2001,
+              value: 2,
+            },
+            {
+              location: 1,
+              date: 2002,
+              value: 4,
+            },
+          ],
+        },
+      ];
+
+      // enable debug messages
+      lotivis.debug(true);
+
+      let dates = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007];
+      let data = lotivis.datasetsToData(datasets);
+      let dataController = lotivis.dataController(data);
+
+      lotivis
+        .plot()
+        .selector("#plot-chart-gradient")
+        .marginLeft(100)
+        .style("gradient")
+        .colorMode("multi")
+        .drawBottomAxis(true)
+        .dates(dates)
+        .dataController(dataController)
+        .run();
+
+      lotivis
+        .plot()
+        .selector("#plot-chart-fraction")
+        .marginLeft(100)
+        .style("fraction")
+        .colorMode("multi")
+        .drawBottomAxis(true)
+        .dates(dates)
+        .dataController(dataController)
+        .run();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+// .ltv-gantt-chart-svg
+// .ltv-gantt-grid-x
+// .ltv-gantt-grid-y
+
+.ltv-selected {
+  fill: $tint-color;
+  opacity: 0.3;
+}
+
+.ltv-gantt-chart-background {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.ltv-gantt-bar {
+  stroke: lightgrey;
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.ltv-gantt-chart-hover-rect {
+  border-radius: 10px;
+  fill: $tint-color;
+}
+
+.ltv-gantt-chart-selection-rect {
+  border-radius: 10px;
+  fill: $tint-color;
+}
+
+.ltv-gantt-grid {
+  color: lightgrey;
+  stroke-width: 1;
+}
+
+.ltv-gantt-label {
+  fill: white;
+  text-anchor: start;
+  font-size: 10px;
+  pointer-events: none;
+}
